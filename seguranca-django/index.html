@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Quão seguro é Django?</title>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/solarized.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section>
+
+				<section>
+					<h2>
+						Django, um framework seguro:
+					</h2>
+					<p>
+						Por que e como?
+					</p>
+				</section>
+
+				<section>
+					<small>Olar,</small>
+					<h3>Quem sou eu?</h3>
+					<p>github.com/davidpierre21</p>
+					<p>@davidpierrea</p>
+					<img width=200 src="images/intelivixlogo.jpg" alt="Logo da empresa Intelivix">
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>O que é Django?</h2>
+					<img class='fragment fade-left' width=400 src="images/the_d_is_silent.gif"
+						alt="GIF do Filme Django Livre">
+				</section>
+
+				<section>
+					<blockquote cite="https://www.djangoproject.com/">
+						&ldquo;Django takes security seriously and helps developers avoid many common security
+						mistakes.&rdquo;
+					</blockquote>
+					<small>https://www.djangoproject.com/</small>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>XSS</h2>
+					<small>Cross-Site Scripting</small>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<pre><code class="python" data-trim data-line-numbers="1-14">
+								_js_escapes = {
+									replace('\\'): '\\u005C',
+									replace('\''): '\\u0027',
+									replace('"'): '\\u0022',
+									replace('>'): '\\u003E',
+									replace('<'): '\\u003C',
+									replace('&'): '\\u0026',
+									replace('='): '\\u003D',
+									replace('-'): '\\u002D',
+									replace(';'): '\\u003B',
+									replace('`'): '\\u0060',
+									replace('\u2028'): '\\u2028',
+									replace('\u2029'): '\\u2029'
+								}
+							</code></pre>
+					<small><a
+							href="https://github.com/django/django/blob/master/django/utils/html.py">https://github.com/django/django/blob/master/django/utils/html.py</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>SQLi</h2>
+					<small>SQL Injection</small>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<img width=300 class='fragment fade-up'
+						src="https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="GIF aleatório de gato">
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>CSRF</h2>
+					<small>Cross-Site Request Forgery</small>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<pre><code class="python" data-trim data-line-numbers="1-14">
+									if request is POST:
+										get csrf_token from cookie
+										get csrfmiddlewaretoken from request.POST
+
+										if csrf_token == csrfmiddlewaretoken:
+											accept
+										else:
+											reject
+								</code></pre>
+					<small><a
+							href="https://github.com/django/django/blob/master/django/middleware/csrf.py">https://github.com/django/django/blob/master/django/middleware/csrf.py</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Clickjacking</h2>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<pre><code class="python" data-trim data-line-numbers="1-21">
+								def process_response(self, request, response):
+									if response.get('X-Frame-Options') is not None:
+										return response
+							
+									if getattr(response, 'xframe_options_exempt', False):
+										return response
+							
+									response['X-Frame-Options'] = 
+									self.get_xframe_options_value(request,response)
+									return response
+							
+								def get_xframe_options_value(self, request, response):
+									return getattr(
+										settings, 'X_FRAME_OPTIONS', 'SAMEORIGIN'
+									).upper()
+								</code></pre>
+					<small><a
+							href="https://github.com/django/django/blob/master/django/middleware/csrf.py">https://github.com/django/django/blob/master/django/middleware/csrf.py</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Host Header Validation</h2>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<pre><code class="python" data-trim data-line-numbers="1-14">
+								if domain and in allowed_hosts:
+									proceed
+								else:
+									raises error
+							</code></pre>
+					<small><a
+							href="https://github.com/django/django/blob/master/django/http/request.py#L95">https://github.com/django/django/blob/master/django/http/request.py#L95</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Senhas</h2>
+					<small>senha123</small>
+				</section>
+
+				<section>
+					<h3>Como Django nos protege?</h3>
+					<img width=250 src="https://media.giphy.com/media/3o8dFn5CXJlCV9ZEsg/giphy.gif"
+						alt="GIF menina surpresa">
+					<small><a
+							href="https://github.com/django/django/blob/master/django/contrib/auth/hashers.py">https://github.com/django/django/blob/master/django/contrib/auth/hashers.py</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>E se eu quiser ser v1d4 l0k4?</h2>
+					<small class="fragment fade-up">Afinal, YOLO</small>
+				</section>
+				<section>
+					<h2>XSS</h2>
+					<ul>
+						<li>mark_safe()</li>
+						<li>| n</li>
+						<li>| safe</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>SQLi</h2>
+					<ul>
+						<li>.extra()</li>
+						<li>RawSQL()</li>
+						<li>.raw()</li>
+					</ul>
+				</section>
+				<section>
+					<h2>CSRF</h2>
+					<pre><code class="python" data-trim data-line-numbers="1-21">
+						@csrf_exempt
+						def view_unchained(request):
+							...
+						
+						
+						@method_decorator(csrf_exempt, dispatch):
+						class MyViewLivre(View):
+							...
+						
+					</code></pre>
+					<small><a href="https://github.com/django/django/blob/master/django/views/decorators/csrf.py#L49">https://github.com/django/django/blob/master/django/views/decorators/csrf.py#L49</a></small>
+				</section>
+				<section>
+					<h2>Clickjacking</h2>
+					<pre><code class="python" data-trim data-line-numbers="1-21">
+						@xframe_options_exempt
+						def view_unchained(request):
+							...
+						
+						
+						@method_decorator(xframe_options_exempt, dispatch):
+						class MyViewLivre(View):
+							...
+						
+					</code></pre>
+					<small><a href="https://github.com/django/django/blob/master/django/views/decorators/clickjacking.py#L40">https://github.com/django/django/blob/master/django/views/decorators/clickjacking.py#L40</a></small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Como tornar o Django ainda mais seguro?</h2>
+				</section>
+				<section>
+					<h3>Algumas utilidades</h3>
+					<ul>
+						<li class="fragment fade-right"><a href="https://www.ponycheckup.com/">Pony Checkup</a></li>
+						<li class="fragment fade-right"><a href="https://pyup.io/safety/">Safety</a></li>
+						<li class="fragment fade-right"><a href="https://snyk.io/">Snyk</a></li>
+						<li class="fragment fade-right"><a href="https://github.com/vintasoftware/awesome-django-security">Awesome Django Security</a></li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<h2>Obrigado</h2>
+				<p><small>@davidpierrea</small></p>
+				<p><small>github.com/davidpierre21</small></p>
+				<p><small>davidpierrealves21@gmail.com</small></p>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true }
+			]
+		});
+	</script>
+</body>
+
+</html>
