@@ -69,6 +69,10 @@
 				<section>
 					<h2>XSS</h2>
 					<small>Cross-Site Scripting</small>
+					<aside class="notes">
+						Ataques XSS permitem um usuário injetar scripts do lado do cliente nos browsers de outros usuários.
+						Geralmente através de ataques persistidos no banco de dados e que serão acessados por outros usuários.
+					</aside>
 				</section>
 
 				<section>
@@ -89,8 +93,11 @@
 									replace('\u2029'): '\\u2029'
 								}
 							</code></pre>
-					<small><a
-							href="https://github.com/django/django/blob/master/django/utils/html.py">https://github.com/django/django/blob/master/django/utils/html.py</a></small>
+					<small><a href="https://github.com/django/django/blob/master/django/utils/html.py">https://github.com/django/django/blob/master/django/utils/html.py</a></small>
+					<aside class="notes">
+						Os templates do django dão escape em caracteres específicos que são perigosos.
+						Eles fazem um replace de caracteres especiais por seu código unicode usando algumas funções como _js_escapes, _html_escapes, etc
+					</aside>
 				</section>
 			</section>
 			<section>
@@ -103,12 +110,22 @@
 					<h3>Como Django nos protege?</h3>
 					<img width=300 class='fragment fade-up'
 						src="https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif" alt="GIF aleatório de gato">
+					<aside class="notes">
+							As querysets do Django são protegidas de SQL injection desde que as queries são construídas,
+							usando queries parametrizadas.
+							Queries parametrizadas são uma forma de pré-compilar statements de SQL e você passa somento parâmetros para ser executada.
+						</aside>
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>CSRF</h2>
 					<small>Cross-Site Request Forgery</small>
+					<aside class="notes">
+						ataques CSRF permitem que um usuário malicioso
+						execute ações usando as credenciais de outro usuário
+						sem o consentimento ou conhecimento do segundo usuário
+					</aside>
 				</section>
 
 				<section>
@@ -125,11 +142,22 @@
 								</code></pre>
 					<small><a
 							href="https://github.com/django/django/blob/master/django/middleware/csrf.py">https://github.com/django/django/blob/master/django/middleware/csrf.py</a></small>
+					<aside class="notes">
+						Django tem proteções a maioria dos ataques CSRF de forma out of the box.
+						A proteção de CSRF funciona checando por um 'segredo' em cada request de POST,
+						isso garante que um usuário danadinho não possa copiar o post de seu site estando logado com outra conta
+						Então, pra realizar o ataque, o usuário danadinho precisaria saber o token do usuário que ele tá atacando, 
+						e esse token é específico pra cada usuário (usando cookies)
+					</aside>
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>Clickjacking</h2>
+					<aside class="notes">
+						Clickjacking é um timpo de ataque que um site malacioso "embrulha" outro site num frame. 
+						Fazendo com que o usuário faça algumas ações não intencionais no site embrulhado.
+					</aside>
 				</section>
 
 				<section>
@@ -153,11 +181,19 @@
 								</code></pre>
 					<small><a
 							href="https://github.com/django/django/blob/master/django/middleware/csrf.py">https://github.com/django/django/blob/master/django/middleware/csrf.py</a></small>
+				<aside class="notes">
+					Django implementa um middleware de xframe que previne que um site seja renderizado dentro de um frame.
+				</aside>							
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>Host Header Validation</h2>
+					<aside class="notes">
+						Django usa os hosts headers fornecidos pelo cliente para construir algumas urls,
+						Esses  mesmos hosts são "higienizados" pra previnir ataques XSS, mas um valor de Host falso
+						pode ser usado pra CSRF, ataques cache poisoning e links poisoning em emails.
+					</aside>
 				</section>
 
 				<section>
@@ -170,6 +206,11 @@
 							</code></pre>
 					<small><a
 							href="https://github.com/django/django/blob/master/django/http/request.py#L95">https://github.com/django/django/blob/master/django/http/request.py#L95</a></small>
+					<aside class="notes">
+						Como é meio dificil se proteger de ataques do tipo, porque até as configurações de servidores tidas como mais seguras
+						são suscetíveis a hosts falsos, django os valida através do Allowed_Hosts que ficam lá no settings do projeto
+						- Deus tá vendo vocês botando o asterisco lá dentro da lista de allowed_hosts - :P
+					</aside>
 				</section>
 			</section>
 			<section>
