@@ -225,6 +225,13 @@
 						alt="GIF menina surpresa">
 					<small><a
 							href="https://github.com/django/django/blob/master/django/contrib/auth/hashers.py">https://github.com/django/django/blob/master/django/contrib/auth/hashers.py</a></small>
+					<aside class="notes">
+						Django faz um hash nas senhas, o que é bom, porque é o básico
+						Mas o que me fez querer botar senhas aqui foi a forma como foi implementado o hash de senhas do django
+						Quando acontece o hash de sua senha no login e você, em algum momento fez o upgrade ou alterou seu método de hash
+						ele checa o hash antigo, vê se a autenticação tá correta e faz um rehash automaticamente usando o novo algoritmo
+						dessa forma tem atualizações de segurança automaticamente
+					</aside>
 				</section>
 			</section>
 			<section>
