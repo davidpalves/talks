@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Captcha Neural Network</title>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/solarized.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section>
+
+				<section>
+					<h2>
+						Bypassing Captcha com Inteligência Artificial
+					</h2>
+					<p><img class='fragment fade-left' width=400 src="https://media.giphy.com/media/XmyFwYm8DzBU4/giphy.gif"
+						alt="Robô respondendo captcha"></p>
+				</section>
+
+				<section>
+					<small>Olar,</small>
+					<p>github.com/davidpierre21/sphinx-captcha</p>
+					<p>github.com/davidpierre21/oedipus</p>
+					<p>github.com/davidpierre21/keras-oedipus</p>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Sphinx Captcha</h2>
+					<img class='fragment fade-left' width=400 src="images/esfinge.jpg"
+						alt="Pintura de uma esfinge">
+				</section>
+
+				<section>
+					<p>Exemplos de captcha gerados</p>
+					<img class='fragment fade-left' width=300 src="images/captcha-exemplo1.jpg"
+						alt="Exemplo de captcha gerado">
+					<img class='fragment fade-left' width=300 src="images/captcha-exemplo.jpg"
+						alt="Exemplo de captcha gerado">
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Oedipus</h2>
+					<small>Abordagem 1</small>
+				</section>
+
+				<section>
+					<h3>Segmentação de Imagens</h3>
+					<img class='fragment fade-left' width=150 src="images/1charactercaptcha.png"
+					alt="Exemplo de captcha segmentado">
+					<img class='fragment fade-left' width=150 src="images/1charactercaptcha1.png"
+					alt="Exemplo de captcha segmentado">
+					<img class='fragment fade-left' width=150 src="images/1charactercaptcha2.png"
+					alt="Exemplo de captcha segmentado">
+					<img class='fragment fade-left' width=150 src="images/1charactercaptcha3.png"
+					alt="Exemplo de captcha segmentado">
+					<small class="fragment fade-up">Classificação por letra individual</small>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Modelo</h3>
+					<pre><code class="hljs" data-trim data-line-numbers="1-25">
+def build_model():
+  inputs = layers.Input((40, 40, 3))
+  x = layers.Conv2D(32, 9, activation='relu')(inputs)
+  x = layers.Conv2D(32, 9, activation='relu')(x)
+  x = layers.MaxPool2D((2, 2))(x)
+  x = layers.Dropout(0.25)(x)
+  x = layers.Flatten()(x)
+  x = layers.Dense(640)(x)
+  x = layers.Dropout(0.5)(x)
+  out = layers.Dense(len(APPEARED_LETTERS), activation='softmax')(x)
+  
+  return Model(inputs=inputs, outputs=out)
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Parâmetros</h2>
+					<ul>
+						<li>
+							Epochs = 50
+						</li>
+						<li>
+							Divisão pra validação = 20%
+						</li>
+						<li>
+							Tamanho do Batch = 128
+						</li>
+						<li>
+							Loss Function = Categorical Cross Entropy Loss
+						</li>
+						<li>
+							Optimizer = Adadelta
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Resultados</h3>
+					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/1.embed"></iframe>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Oedipus</h2>
+					<small>Abordagem 2</small>
+				</section>
+
+				<section>
+					<h3>Imagem Completa</h3>
+					<img src="images/captcha-exemplo2.jpg" width=300 alt="Exemplo Captcha 4 Caracteres">
+					<img src="images/captcha-exemplo3.jpg" width=300 alt="Exemplo Captcha 4 Caracteres">
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Modelo</h2>
+					<pre><code class="hljs" data-trim data-line-numbers="1-25">
+self.conv1 = nn.Conv2d(3, 18, 5)
+self.pool1 = nn.MaxPool2d(2) 
+self.conv2 = nn.Conv2d(18, 48, 5)
+self.pool2 = nn.MaxPool2d(2) 
+# Flatten
+self.drop = nn.Dropout(0.5)
+self.fc1 = nn.Linear(48 * 6 * 27, 360)
+self.fc2 = nn.Linear(360, 19 * 4)
+
+x = F.relu(self.conv1(x))
+x = self.pool1(x)
+x = F.relu(self.conv2(x))
+x = self.pool2(x)
+x = x.view(-1, 48 * 6 * 27)  # Flatten
+x = self.drop(x)
+x = F.relu(self.fc1(x))
+x = self.fc2(x).view(-1, 4, 19)
+x = F.softmax(x, dim=2)
+x = x.view(-1, 4 * 19)
+					
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Parâmetros</h2>
+					<ul>
+						<li>
+							Epochs = Máximo de 50
+						</li>
+						<li>
+							Divisão pra validação = 20%
+						</li>
+						<li>
+							Tamanho do Batch = 4
+						</li>
+						<li>
+							Loss Function = Binary Cross Entropy Loss
+						</li>
+						<li>
+							Optimizer = Adadelta
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Resultados</h3>
+					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/3.embed"></iframe>
+				</section>
+			</section>
+			<section>
+				<section>
+					Comparando abordagens
+				</section>
+				<section>
+					<h3>Resultados</h3>
+					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/5.embed"></iframe>
+				</section>
+			</section>
+			<section>
+				<h3>Obrigado</h3>
+				<small>Dúvidas?</small>
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/highlight/highlight.js', async: true },
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+			]
+		});
+	</script>
+</body>
+
+</html>
