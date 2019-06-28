@@ -32,17 +32,16 @@
 
 				<section>
 					<h2>
-						Bypassing Captcha com Inteligência Artificial
+						CNN para resolução de CAPTCHA
 					</h2>
 					<p><img class='fragment fade-left' width=400 src="https://media.giphy.com/media/XmyFwYm8DzBU4/giphy.gif"
 						alt="Robô respondendo captcha"></p>
 				</section>
 
 				<section>
-					<small>Olar,</small>
+					<small>Código</small>
 					<p>github.com/davidpierre21/sphinx-captcha</p>
 					<p>github.com/davidpierre21/oedipus</p>
-					<p>github.com/davidpierre21/keras-oedipus</p>
 				</section>
 
 			</section>
@@ -56,82 +55,16 @@
 
 				<section>
 					<p>Exemplos de captcha gerados</p>
-					<img class='fragment fade-left' width=300 src="images/captcha-exemplo1.jpg"
+					<img class='fragment fade-left' width=300 src="images/captcha-exemplo2.jpg"
 						alt="Exemplo de captcha gerado">
-					<img class='fragment fade-left' width=300 src="images/captcha-exemplo.jpg"
+					<img class='fragment fade-left' width=300 src="images/captcha-exemplo3.jpg"
 						alt="Exemplo de captcha gerado">
-				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Oedipus</h2>
-					<small>Abordagem 1</small>
-				</section>
-
-				<section>
-					<h3>Segmentação de Imagens</h3>
-					<img class='fragment fade-left' width=150 src="images/1charactercaptcha.png"
-					alt="Exemplo de captcha segmentado">
-					<img class='fragment fade-left' width=150 src="images/1charactercaptcha1.png"
-					alt="Exemplo de captcha segmentado">
-					<img class='fragment fade-left' width=150 src="images/1charactercaptcha2.png"
-					alt="Exemplo de captcha segmentado">
-					<img class='fragment fade-left' width=150 src="images/1charactercaptcha3.png"
-					alt="Exemplo de captcha segmentado">
-					<small class="fragment fade-up">Classificação por letra individual</small>
-				</section>
-			</section>
-			<section>
-				<section>
-					<h3>Modelo</h3>
-					<pre><code class="hljs" data-trim data-line-numbers="1-25">
-def build_model():
-  inputs = layers.Input((40, 40, 3))
-  x = layers.Conv2D(32, 9, activation='relu')(inputs)
-  x = layers.Conv2D(32, 9, activation='relu')(x)
-  x = layers.MaxPool2D((2, 2))(x)
-  x = layers.Dropout(0.25)(x)
-  x = layers.Flatten()(x)
-  x = layers.Dense(640)(x)
-  x = layers.Dropout(0.5)(x)
-  out = layers.Dense(len(APPEARED_LETTERS), activation='softmax')(x)
-  
-  return Model(inputs=inputs, outputs=out)
-					</code></pre>
-				</section>
-			</section>
-			<section>
-				<section>
-					<h2>Parâmetros</h2>
-					<ul>
-						<li>
-							Epochs = 50
-						</li>
-						<li>
-							Divisão pra validação = 20%
-						</li>
-						<li>
-							Tamanho do Batch = 128
-						</li>
-						<li>
-							Loss Function = Categorical Cross Entropy Loss
-						</li>
-						<li>
-							Optimizer = Adadelta
-						</li>
-					</ul>
-				</section>
-
-				<section>
-					<h3>Resultados</h3>
-					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/1.embed"></iframe>
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>Oedipus</h2>
-					<small>Abordagem 2</small>
+					<small>A Rede Neural</small>
 				</section>
 
 				<section>
@@ -166,6 +99,10 @@ x = x.view(-1, 4 * 19)
 					
 					</code></pre>
 				</section>
+				<section>
+					<h2>Modelo</h2>
+					<img src="images/model.png" width="750" alt="Arquitetura de Modelo utilizado">
+				</section>
 			</section>
 			<section>
 				<section>
@@ -175,10 +112,7 @@ x = x.view(-1, 4 * 19)
 							Epochs = Máximo de 50
 						</li>
 						<li>
-							Divisão pra validação = 20%
-						</li>
-						<li>
-							Tamanho do Batch = 4
+							Divisão pra validação e treino = 20%
 						</li>
 						<li>
 							Loss Function = Binary Cross Entropy Loss
@@ -193,14 +127,11 @@ x = x.view(-1, 4 * 19)
 					<h3>Resultados</h3>
 					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/3.embed"></iframe>
 				</section>
-			</section>
-			<section>
-				<section>
-					Comparando abordagens
-				</section>
 				<section>
 					<h3>Resultados</h3>
-					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/5.embed"></iframe>
+					<iframe width=700 height=500 data-src="https://plot.ly/~davidpierrea/1.embed"></iframe>
+					<small>Média para caracteres individuais: 94.72%</small><br/>
+					<small>Média para CAPTCHA completo: 81.71%</small><br/>
 				</section>
 			</section>
 			<section>
