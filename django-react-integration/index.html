@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Django + React = ♥?</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h2>Django + React = ♥?</h2>
+						<p>Um breve overview nas tecnologias e como integrá-las</p>
+					</section>
+
+					<section>
+						<small>Olar,</small>
+						<h3>Quem sou eu?</h3>
+						<p>github.com/davidpierre21</p>
+						<p>@davidpierrea</p>
+						<img width=200 src="images/locus-logo.png" alt="Logo da empresa Locus Custom Software">
+					</section>
+					
+				</section>
+				<section>
+					<section>
+						<h3>Django</h3>
+						<img class='fragment fade-left' width=400 src="images/the_d_is_silent.gif"
+							alt="GIF do Filme Django Livre">
+					</section>
+					<section>
+						<h3>O que é Django?</h3>
+						<p class="fragment fade-up">
+							Django é um framework de alto nível, escrito em Python que encoraja o desenvolvimento <strong>limpo</strong> de aplicações web.
+						</p>
+					</section>
+					<section>
+						<h4>Mas django não é um framework full stack?</h4>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>React</h3>
+						<img class="fragment fade-right" width="400" src="https://media.giphy.com/media/10bdAP4IOmoN7G/giphy.gif"
+							alt="GIF de Star Wars">
+					</section>
+					<section>
+						<h3>O que é React?</h3>
+						<p class="fragment fade-top">
+							O React é uma biblioteca para criar interfaces, que foi idealizada pela galera do Facebook e Instagram.
+						</p>
+					</section>
+					<section>
+						<h3>E porque usar React?</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Como integrá-las?</h3>
+						<img class="fragment fade-right" width="400" src="https://media.giphy.com/media/l2Je6sbvJEn1W9OWQ/giphy.gif"
+							alt="GIF de tentativa de encaixar peças de quebra-cabeça">
+					</section>
+					<section>
+						<img src="images/porta-dos-desesperados.jpg" width="700" alt="Foto da porta dos desesperados">
+					</section>
+					
+					<section>
+						<h5>Porta número 1:</h5>
+						<pre><code data-trim data-noescape>
+								npx create-react-app my-app
+						</code></pre>
+					</section>
+					<section>
+						<h5>Porta número 2:</h5>
+						<pre><code data-trim data-noescape>
+								npm run eject
+						</code></pre>
+					</section>
+					<section>
+						<h5>Porta número 3:</h5>
+						Configurar o webpack na mão.
+					</section>
+				</section>
+				<section>
+					<h4>Boilerplates:</h4>
+						<ul>
+							<a href="https://github.com/vintasoftware/django-react-boilerplate">Django-React Boilerplate</a> - Vinta 
+						</ul>
+						<ul>
+							<a href="https://github.com/labcodes/django-react-webpack">Django-React Webpack</a> - Labcodes 
+						</ul>
+						<ul>
+							<a href="https://github.com/justdjango/django-react-boilerplate">Django-React Boilerplate</a> - JustDjango 
+						</ul>
+				</section>
+				<section>
+					<h4>Construir o próprio boilerplate?</h4>
+					<ul>
+						<a href="https://medium.com/labcodes/configurando-um-projeto-django-com-react-1292abded7a5">Configurando um projeto Django com React</a>
+					</ul>
+					<ul>
+						<a href="https://www.digitalocean.com/community/tutorials/how-to-build-a-modern-web-application-to-manage-customer-information-with-django-and-react-on-ubuntu-18-04">Django + Create React App</a>
+					</ul>
+					<ul>
+						<a href="https://www.easyaslinux.com/tutorials/devops/how-to-setup-reactjs-with-django-steps-with-examples/">Setting Up Django with ReactJS</a>
+					</ul>
+				</section>
+				<section>
+					<h4>Dúvidas?</h4>
+					<img src="https://media.giphy.com/media/lD76yTC5zxZPG/giphy.gif" alt="That's all folks">
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
