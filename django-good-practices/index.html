@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Django Good Practices</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h3>"It was Beauty killed the Beast"</h3>
+						<img height=300 src="images/king-kong-tower.jpg" alt="King Kong no topo da torre">
+						<p>Boas práticas utilizando Python e Django</p>
+					</section>
+
+					<section>
+						<small>Olar,</small>
+						<h3>Quem sou eu?</h3>
+						<p>github.com/davidpierre21</p>
+						<p>@davidpierrea</p>
+						<img width=200 src="images/locus-logo.png" alt="Logo da empresa Locus Custom Software">
+					</section>
+					
+				</section>
+				<section>
+					<section>
+						<h3>Zen do Python</h3>
+						<img src="images/zen-of-python.png" width=500 alt="O Zen do Python">
+					</section>
+					<section>
+						<h3>Coding Style</h3>
+						<p class="fragment fade-up">
+							É um conjunto de guias para linguagens específicas que recomendam um estilo de código e programação,
+							para:
+							<ul class="fragment fade-down">
+								<li>
+									Qualidade
+								</li>
+								<li>
+									Código padronizado
+								</li>
+								<li>
+									Redução de complexidade
+								</li>
+								<li>
+									Refatoração
+								</li>
+								<li>
+									Legibilidade
+								</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>PEP8</h4>
+						<blockquote cite="https://twitter.com/gvanrossum">
+							&ldquo;Code is read much more often than it is written.&rdquo;
+						</blockquote>
+						<small>Guido van Rossum</small>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Naming Styles</h3>
+						<blockquote cite="https://martinfowler.com/bliki/TwoHardThings.html">
+							&ldquo;There are only two hard things in Computer Science: cache invalidation and naming things.&rdquo;
+						</blockquote>
+						<small>Phil Karlton</small>
+					</section>
+					<section>
+						<h4>Funções e métodos</h4>
+						<p>Usar letras minúsculas e separar palavras por underscore (_)</p>
+						<small>Exemplo: </small>
+						<pre><code class="python hljs" data-trim data-line-numbers="1-21">
+# Usar:
+def minha_funcao(request, *args, **kwargs):
+	...
+
+# Não usar:
+def minhaFuncao(request, *args, **kwargs):
+	...
+
+def MinhaFuncao(request, *args, **kwargs):
+	...
+						</code></pre>
+					</section>
+					<section>
+						<h4>Variáveis</h4>
+						<p>Usar letras minúsculas e separar palavras por underscore.
+							<br/>Ser o mais explicito possível quanto a função da variável
+						</p>
+						<small>Exemplo: </small>
+						<pre><code class="hljs" data-trim data-line-numbers="1-21">
+# Usar:
+preco_fogao = fogao.preco
+
+# Evitar:
+i = fogao.preco
+
+# Não usar:
+precoFogao = fogao.preco
+preco-fogao = fogao.preco
+
+						</code></pre>
+					</section>
+					<section>
+						<h4>Classes</h4>
+						<p>Começar cada palavra com a letra maiúscula. Utilizar CamelCase.</p>
+						<small>Exemplo: </small>
+						<pre><code class="hljs" data-trim data-line-numbers="1-21">
+# Usar:
+class MinhaClasse(models.Model):
+	...
+	
+# Não usar:
+class Minha_classe(models.Model):
+	...
+	
+class minhaClasse(models.Model):
+	...
+
+						</code></pre>
+					</section>
+					<section>
+						<h4>Constantes</h4>
+						<p>Usar letras maiúsculas separadas por underscore.</p>
+						<small>Exemplo: </small>
+						<pre><code class="hljs" data-trim data-line-numbers="1-21">
+# Usar:
+MINHA_CONSTANTE = 500
+	
+# Não usar:
+minha_constante = 500
+	
+MINHACONSTANTEVAIFICARDIFICILDELERSEFICARASSIM = 500
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h4>Code Layout</h4>
+					</section>
+					<section>
+						<h4>Linhas em branco:</h4>
+						<p>
+							Classes e funções de alto-nível são separadas por duas linhas em branco.
+						</p>
+						<small>Exemplo: </small>
+						<pre><code class="hljs python" data-trim data-line-numbers>
+class MyModel(model.Models):
+	pass
+
+
+class OtherModel(model.Models):
+	pass
+
+
+def funcao_que_faz_outra_coisa():
+	return
+
+						</code></pre>
+					</section>
+					<section>
+						<h4>Linhas em branco:</h4>
+						<p>
+							Funções dentro de uma classe são separadas por uma linha em branco.
+						</p>
+						<small>Exemplo: </small>
+						<pre><code class="hljs python" data-trim data-line-numbers>
+class MyModel(model.Models):
+	def funcao_que_faz_alguma_coisa(self):
+		return self
+
+	def funcao_que_faz_outra_coisa(self):
+		return self
+
+						</code></pre>
+					</section>
+					<section>
+						Também pode ser conveniente, numa função complexa,
+						adicionar linhas em branco dividindo diferentes passos,
+						para facilitar a leitura.
+
+						<small class="fragment fade-left">
+							Não deixem linhas em branco com espaços.
+						</small>
+					</section>
+				</section>
+				<section>
+					<h4>Tamanho da linha</h4>
+					<p class="fragment fade-right">
+						Máximo recomendado: 79 caracteres.
+					</p>
+				</section>
+				<section>
+					<img src="https://media.giphy.com/media/l0HlDPj4VWT98YeqY/giphy.gif" alt="GIF de Desespero">
+				</section>
+				<section>
+					<h3>Linters:</h3>
+					<p>
+						<ul class="fragment fade-up"> 
+							<li>
+								Flake8
+							</li>
+							<li>
+								Pylint
+							</li>
+							<li>
+								Black
+							</li>
+						</ul>
+					</p>
+					<img class="fragment fade-down" src="https://media.giphy.com/media/EDt1m8p5hqXG8/giphy.gif" alt="GIF de alívio">
+				</section>
+				<section>
+					<h3>Classy Class-Based Views</h3>
+					<p>FBV Vs CBV</p>
+					<img src="images/classy-meme.jpg" alt="Meme de um lorde">
+				</section>
+				<section>
+					<h3>Javascript em Django </h3>
+					<p class="fragment fade-right">Variáveis: primeira letra minúscula utilizando CamelCase</p>
+						<pre><code class="hljs fragment fade-up">
+// Recomendado
+$('body').on('click', selector, func) { 
+
+}
+
+// Evitar
+$('selector').click(func){
+
+}
+						</code></pre>
+				</section>
+				<section>
+					<h4>Settings</h4>
+					<p class="fragment fade-down">
+						Separar informação sensível do Settings.
+					</p>
+					<p class="fragment fade-up">
+						Dividir a settings para produção/local/development?
+					</p>
+					<p class="fragment fade-left">Dividir o INSTALLED_APPS</p>
+				</section>
+				<section>
+					<h4>HTML</h4>
+					<p class="fragment fade-right">Usem tags!</p>
+				</section>
+				<section>
+					<img src="https://media.giphy.com/media/APHFMUIaTnLIA/giphy.gif" alt="GIF de Fim">
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
