@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>The Nature of Code - Python</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
@@ -39,7 +39,69 @@
 					<img width=200 src="http://www.ufrpe.br/sites/www.ufrpe.br/files/Marcas%20UFRPE-02.jpg" alt="Logo da Universidade Federal Rural de Pernambuco">
 				</section>
 				<section>
-					<h3>Fiat randomness</h3>
+					<section>
+						<small>Faça-se a aleatoriedade</small>
+						<iframe class="fragment fade-left" width=800 height=800 data-src="examples/randomWalkTraditional/"></iframe>
+					</section>
+					<section>
+						<small>E com 8 direções?</small><br>
+						<iframe class="fragment fade-left" width=800 height=800 data-src="examples/randomWalkTraditional8/"></iframe>
+					</section>
+					<section>
+						<h3>E como  faz?</h3>
+						<pre><code class="hljs">
+class Walker(object):
+
+	def __init__(self):
+		self.x = width / 2
+		self.y = height / 2
+
+	def render(self):
+		stroke(0)
+		point(self.x, self.y)
+
+	def step(self):
+		choice = int(random(4))
+
+		if choice == 0:
+			self.x += 1
+		elif choice == 1:
+			self.x -= 1
+		elif choice == 2:
+			self.y += 1
+		elif choice == 3:
+			self.y -= 1
+		else:
+			self.y += 0
+
+		self.x = constrain(self.x, 0, width - 1)
+		self.y = constrain(self.y, 0, height - 1)
+							</code></pre>
+					</section>
+					<section>
+						<pre><code class="hljs">
+from walker import Walker
+
+	def setup():
+		size(640, 360)
+		global w
+		w = Walker()
+		background(255)
+
+
+	def draw():
+		w.step()
+		w.render()
+						</code></pre>
+					</section>
+					<section>
+						<h3>E por que não ficou tão bom assim?</h3>
+						<small>Random Distribution no processing</small><br>
+						<iframe class="fragment fade-left" width=640 height=360 data-src="examples/randomNumberDistribution/"></iframe>
+					</section>
+				</section>
+				<section>
+					<h4>Deixando nosso ser simulado mais realista</h4>
 				</section>
 			</div>
 		</div>
