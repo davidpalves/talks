@@ -111,37 +111,67 @@ from walker import Walker
 					<section>
 						<h4>Como foi feito?</h4>
 						<pre><code class="hljs python">
-class Walker(object):
-
-	def __init__(self):
-		self.tx = 0
-		self.ty = 10000
-		self.x = map(noise(self.tx), 0, 1, 0, width)
-		self.y = map(noise(self.ty), 0, 1, 0, height)
-		self.prevX, self.prevY = 0, 0
-
-	def render(self):
-		stroke(255)
-		line(self.prevX, self.prevY, self.x, self.y)
-
-	def step(self):
-		self.prevX = self.x
-		self.prevY = self.y
-		self.x = map(noise(self.tx), 0, 1, 0, width)
-		self.y = map(noise(self.ty), 0, 1, 0, height)
-		self.tx += 0.01
-		self.ty += 0.01							
+							class Walker(object):
+							
+							def __init__(self):
+							self.tx = 0
+							self.ty = 10000
+							self.x = map(noise(self.tx), 0, 1, 0, width)
+							self.y = map(noise(self.ty), 0, 1, 0, height)
+							self.prevX, self.prevY = 0, 0
+							
+							def render(self):
+							stroke(255)
+							line(self.prevX, self.prevY, self.x, self.y)
+							
+							def step(self):
+							self.prevX = self.x
+							self.prevY = self.y
+							self.x = map(noise(self.tx), 0, 1, 0, width)
+							self.y = map(noise(self.ty), 0, 1, 0, height)
+							self.tx += 0.01
+							self.ty += 0.01							
 						</code></pre>
 					</section>
 					<section>
-						<h1>Exemplo: Landscape</h1>
+						<h1>Exemplo de Noise 3D</h1>
 					</section>
+					
+				</section>
+				<section>
+					<section>
+						<h1>Forças</h1>
+						<img class='fragment fade-left' width=400 src="https://cdn.dopl3r.com/memes_files/4a-lei-de-newton-atartesdepressao-quanto-mais-desarrumad0-vc-sai-de-casamais-conhecidos-vc-vaiencontrar-artes-depressao-qol4p.jpg"
+						alt="Retrato de Newton com texto: 4ª Lei de Newton: quanto mais desarrumado você sai de casa, mais conhecidos você tende a encontrar">
+					</section>
+					<section>
+						<h1>Sistemas Multiagentes</h1>
+					</section>
+					<section>
+						<h1>Steering Behavior</h1>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Alguns outros exemplos...</h2>
+					</section>
+					<section>
+						<h3>Fractals</h3>
+						<iframe class="fragment fade-left" width=640 height=360 data-src="examples/FractalTree/"></iframe>
+					</section>
+					<section>
+						<h3>Genetic Algorithms</h3>
+						<iframe class="fragment fade-left" width=640 height=360 data-src="examples/GeneticAlgorithms/"></iframe>
+					</section>
+				</section>
+				<section>
+					Obrigado!
 				</section>
 			</div>
 		</div>
-
+		
 		<script src="js/reveal.js"></script>
-
+		
 		<script>
 			// More info about config & dependencies:
 			// - https://github.com/hakimel/reveal.js#configuration
