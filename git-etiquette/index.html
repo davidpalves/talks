@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Git Etiquette</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h3>Git Etiquette</h3>
+						<img height=300 src="https://media.giphy.com/media/hrpjWzFIbOjkxltbBG/source.gif">
+						<p>Boas práticas de git</p>
+						<small><strike>Pra ninguém brigar com os amiguinhos</strike></small>
+					</section>
+
+					<section>
+						<small>Olar,</small>
+						<h3>Quem sou eu?</h3>
+						<p>github.com/davidpierre21</p>
+						<p>@davidpierrea</p>
+					</section>
+					
+				</section>
+				<section>
+					<h3>Reviewing Code</h3>
+					<blockquote cite="https://www.vinta.com.br/blog/2018/pull-requests-merging-good-practices-your-project-part-1/">
+							&ldquo;Reviewing code is sharing knowledge&rdquo;
+					</blockquote>
+				</section>
+				<section>
+					<section>
+						<h3>Commits</h3>
+						<img src="https://miro.medium.com/max/794/1*xOZ0vKuR8AH1br_xZYg-aA.gif" width=500>
+					</section>
+					<section>
+						<ul>
+							<li class="fragment fade-left">Faça pequenos commits</li>
+							<li class="fragment fade-left">Escreva boas mensagens de commit</li>
+							<li class="fragment fade-left">ESCREVA BOAS MENSAGENS DE COMMIT</li>
+						</ul>
+					</section>
+					<section>
+						<h2>ESCREVA BOAS MENSAGENS DE COMMIT</h2>
+					</section>
+					<section>
+						<h3>Como escrever boas mensagens de commit?</h3>
+						<img src="https://media.giphy.com/media/SPZFhfUJjsJO0/source.gif" width=500>
+					</section>
+				</section>
+				<section>
+					<section>
+						<ul>
+							<li>Use a segunda pessoa do Imperativo Afirmativo ("Adiciona guias de contribuição...")
+								<ul>
+									<li class="fragment fade-left">e não "Adicionando guias de contribuição...");</li>
+								</ul>
+							</li>
+							<li class="fragment fade-left">
+								O título (primeira linha) deve conter 50 caracteres ou menos
+							</li>
+						</ul>					
+					</section>
+					<section>
+						<ul>
+							<li>
+								Caso haja descrição do commit, deixe a segunda linha em branco
+							</li>
+							<li>
+								Adicione uma descrição do commit da terceira linha em diante, com 72 caracteres ou menos por linha
+							</li>
+						</ul>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
